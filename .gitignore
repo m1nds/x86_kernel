@@ -1,0 +1,7 @@
+*.o
+*.iso
+*.bin
+*.dump
+isodir
+bin
+obj
