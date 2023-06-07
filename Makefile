@@ -1,6 +1,6 @@
 CC:=i686-elf-gcc
 LD:=i686-elf-ld
-CFLAGS:=-std=gnu99 -nostdlib -ffreestanding -Wall -Wextra
+CFLAGS:=-std=gnu99 -nostdlib -ffreestanding -Wall -Wextra -fstack-protector-all
 AS:=nasm
 
 CRTBEGIN_OBJ:=$(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
@@ -10,7 +10,7 @@ ASM:=$(shell find . -name "*.asm")
 C:=$(shell find . -name "*.c")
 
 OBJ:= $(ASM:.asm=.o) $(C:.c=.o)
-LINK:= obj/crti.o $(CRTBEGIN_OBJ) obj/tty.o obj/kernel.o obj/boot.o  $(CRTEND_OBJ) obj/crtn.o
+LINK:= obj/crti.o $(CRTBEGIN_OBJ) obj/boot.o $(addprefix obj/,$(notdir $(C:.c=.o)))  $(CRTEND_OBJ) obj/crtn.o
 
 .PHONY: clean setup make_iso link_objects
 
