@@ -6,10 +6,10 @@ AS:=nasm
 CRTBEGIN_OBJ:=$(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
 CRTEND_OBJ:=$(shell $(CC) $(CFLAGS) -print-file-name=crtend.o)
 
-ASM:=$(shell find . -name "*.S")
+ASM:=$(shell find . -name "*.asm")
 C:=$(shell find . -name "*.c")
 
-OBJ:= $(ASM:.S=.o) $(C:.c=.o)
+OBJ:= $(ASM:.asm=.o) $(C:.c=.o)
 LINK:= obj/crti.o $(CRTBEGIN_OBJ) obj/tty.o obj/kernel.o obj/boot.o  $(CRTEND_OBJ) obj/crtn.o
 
 .PHONY: clean setup make_iso link_objects
@@ -21,17 +21,16 @@ make_iso: setup link_objects
 	grub-mkrescue -o lkd.iso isodir
 
 link_objects: setup $(OBJ)
-	#$(LD) --nmagic --output=bin/kernel.bin --script=linker.ld $(LINK)
-	$(CC) -g -T linker.ld -o bin/kernel.bin $(CFLAGS) $(LINK)
+	$(LD) --nmagic --output=bin/kernel.bin --script=linker.ld $(LINK)
+	#$(CC) -g -T linker.ld -o bin/kernel.bin $(CFLAGS) $(LINK)
 
 %.o: %.c
 	$(CC) -g -c $< -o $@ $(CFLAGS)
 	mv $@ obj/
 
-%.o: %.S
-	$(CC) -g -c $< -o $@ $(CFLAGS)
+%.o: %.asm
+	$(AS) -f elf32 $<
 	mv $@ obj/
-	#$(AS) -f elf32 $<
 
 setup:
 	mkdir -p obj/ bin/ isodir/boot/grub
