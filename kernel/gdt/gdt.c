@@ -2,11 +2,15 @@
 #include <stdint.h>
 
 #include "../include/gdt.h"
+#include "../include/string.h"
 
 gdt_descriptor_entry gdt_entries[GDT_ENTRIES];
+tss_entry tss_entries;
+
 gdt_descriptor gdt_desc;
 
 extern void gdt_load(void);
+extern void tss_load(void);
 
 void gdt_setup_entry(size_t i, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
     gdt_entries[i].low_limit = limit & 0xFFFF;
@@ -19,23 +23,29 @@ void gdt_setup_entry(size_t i, uint32_t base, uint32_t limit, uint8_t access, ui
 
 void gdt_init() {
     
-    // Null segment descriptor
-    gdt_setup_entry(0, 0, 0, 0, 0);
-
-    // Kernel code segment descriptor
-    gdt_setup_entry(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
-
-    // Kernel data code segment
-    gdt_setup_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
-
-    // User code segment descriptor
-    gdt_setup_entry(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
-
-    // User data segment descriptor
-    gdt_setup_entry(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
+    memset(&tss_entries, 0, sizeof(tss_entries));
 
     gdt_desc.offset = (uint32_t) &gdt_entries;
     gdt_desc.limit = sizeof(gdt_descriptor_entry) * GDT_ENTRIES - 1;
 
+    // Null segment descriptor
+    gdt_setup_entry(0, 0, 0, 0, 0);
+
+    // Kernel code segment descriptor
+    gdt_setup_entry(1, 0, 0xFFFFF, 0x9A, 0xC);
+
+    // Kernel data code segment
+    gdt_setup_entry(2, 0, 0xFFFFF, 0x92, 0xC);
+
+    // User code segment descriptor
+    gdt_setup_entry(3, 0, 0xFFFFF, 0xFA, 0xC);
+
+    // User data segment descriptor
+    gdt_setup_entry(4, 0, 0xFFFFF, 0xF2, 0xC);
+
+    // TSS segment descriptor
+    gdt_setup_entry(5, (uint32_t) &tss_entries, sizeof(tss_entry), 0x89, 0x0);
+
     gdt_load();
+    tss_load();
 }
