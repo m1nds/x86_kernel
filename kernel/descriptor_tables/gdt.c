@@ -1,8 +1,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../include/gdt.h"
-#include "../include/string.h"
+#include "gdt.h"
+#include "string.h"
 
 gdt_descriptor_entry gdt_entries[GDT_ENTRIES];
 tss_entry tss_entries;

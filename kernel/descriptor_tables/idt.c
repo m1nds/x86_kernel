@@ -1,8 +1,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../include/idt.h"
-#include "../include/string.h"
+#include "idt.h"
+#include "string.h"
 
 idt_descriptor_entry idt_entries[IDT_ENTRIES];
 idt_descriptor idt_desc;

@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include "../include/string.h"
+#include "string.h"
 
 unsigned char* memset(void* dest, unsigned char val, size_t count) {
     unsigned char* d = (unsigned char*) dest;

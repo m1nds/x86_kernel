@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../include/tty.h"
+#include "tty.h"
 
 struct tty_data tty;
 

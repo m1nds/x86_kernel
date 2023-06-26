@@ -1,6 +1,6 @@
 CC:=i686-elf-gcc
 LD:=i686-elf-ld
-CFLAGS:=-m32 -g -std=gnu99 -nostdlib -ffreestanding -Wall -Wextra -fstack-protector-all
+CFLAGS:=-I kernel/include -m32 -g -std=gnu99 -nostdlib -ffreestanding -Wall -Wextra -fstack-protector-all
 AS:=nasm
 
 CRTBEGIN_OBJ:=$(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
@@ -37,4 +37,4 @@ setup:
 	cp grub.cfg isodir/boot/grub
 
 clean:
-	rm -rf obj/ bin/ isodir/
+	rm -rf obj/ bin/ isodir/ lkd.iso

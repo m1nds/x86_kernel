@@ -1,9 +1,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "include/tty.h"
-#include "include/gdt.h"
-#include "include/idt.h"
+#include "tty.h"
+#include "gdt.h"
+#include "idt.h"
 
 void kernel_main(void) {
 

@@ -1,4 +1,4 @@
-#include "../include/tty.h"
+#include "tty.h"
 
 __attribute__ ((noreturn)) void isr_handler() {
     print("ISR handled!\n");
