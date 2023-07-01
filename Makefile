@@ -10,7 +10,7 @@ ASM:=$(shell find . -name "*.asm")
 C:=$(shell find . -name "*.c")
 
 OBJ:= $(ASM:.asm=.o) $(C:.c=.o)
-LINK:= obj/crti.o $(CRTBEGIN_OBJ) obj/boot.o obj/isr.o obj/gdt_load.o obj/idt_load.o obj/tss_load.o $(addprefix obj/,$(notdir $(C:.c=.o)))  $(CRTEND_OBJ) obj/crtn.o
+LINK:= obj/crti.o $(CRTBEGIN_OBJ) obj/boot.o obj/isr.o obj/irq.o obj/gdt_load.o obj/idt_load.o obj/tss_load.o $(addprefix obj/,$(notdir $(C:.c=.o)))  $(CRTEND_OBJ) obj/crtn.o
 
 .PHONY: clean setup make_iso link_objects
 

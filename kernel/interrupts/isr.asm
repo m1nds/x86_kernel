@@ -4,12 +4,15 @@ extern isr_handler
 ; Macros to instiante ISRs easily
 %macro ISR_ERR 1
 isr_%+%1:
+    push DWORD %1
     call isr_handler
     iret
 %endmacro
 
 %macro ISR_NO_ERR 1
 isr_%+%1:
+    push DWORD 0
+    push DWORD %1
     call isr_handler
     iret
 %endmacro
@@ -50,10 +53,10 @@ ISR_NO_ERR 31
 
 global isr_table
 isr_table:
-%assign i 0
-%rep 32
-    dd isr_%+i
-%assign i i+1
-%endrep
+    %assign i 0
+    %rep 32
+        dd isr_%+i
+    %assign i i+1
+    %endrep
 
 

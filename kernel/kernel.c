@@ -3,14 +3,12 @@
 
 #include "tty.h"
 #include "gdt.h"
-#include "idt.h"
+#include "interrupts.h"
 
 void kernel_main(void) {
 
     gdt_init();
-    idt_init();
+    interrupts_init();
     
     print("lkd\n");
-
-    int test = 5/0;
 }

@@ -21,6 +21,6 @@ struct idt_descriptor_entry {
 typedef struct idt_descriptor idt_descriptor;
 typedef struct idt_descriptor_entry idt_descriptor_entry;
 
-void idt_init();
+void idt_setup_entry(idt_descriptor_entry* entry, uint32_t offset, uint16_t selector, uint8_t flags);
 
 #endif
