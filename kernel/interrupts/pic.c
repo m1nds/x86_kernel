@@ -21,3 +21,10 @@ void pic_remap() {
     outb(PIC_MASTER_DATA, 0x0);
     outb(PIC_SLAVE_DATA, 0x0);
 }
+
+void pic_send_eoi(uint32_t irq) {
+    if(irq >= 8)
+		outb(PIC_SLAVE_COMMAND, 0x20);
+ 
+	outb(PIC_MASTER_COMMAND, 0x20);
+}

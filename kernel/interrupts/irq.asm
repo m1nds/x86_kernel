@@ -3,9 +3,10 @@ extern irq_handler
 ; Macros to instiante ISRs easily
 %macro IRQ 1
 irq_%+%1:
-    push DWORD 0
+    push DWORD %1
     push DWORD %1
     call irq_handler
+    add esp, 8
     iret
 %endmacro
 

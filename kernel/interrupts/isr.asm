@@ -6,6 +6,7 @@ extern isr_handler
 isr_%+%1:
     push DWORD %1
     call isr_handler
+    add esp, 8
     iret
 %endmacro
 
@@ -14,6 +15,7 @@ isr_%+%1:
     push DWORD 0
     push DWORD %1
     call isr_handler
+    add esp, 8
     iret
 %endmacro
 

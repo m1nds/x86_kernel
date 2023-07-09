@@ -43,9 +43,6 @@ _start:
     ; Calling the kernel_main function in kernel.c
     call kernel_main
     
-    ; Testing hardware interrupts
-    int 40
-
     cli
     hlt
     jmp $

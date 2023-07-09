@@ -30,4 +30,6 @@ void interrupts_init() {
     }
 
     idt_load();
+
+    __asm__ volatile ("sti");
 }
