@@ -22,5 +22,6 @@
 #define ICW4 0x1
 
 void pic_remap();
+void pic_send_eoi(uint32_t irq);
 
 #endif

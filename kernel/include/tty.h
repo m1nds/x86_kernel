@@ -16,6 +16,7 @@ struct tty_data {
 };
 
 void tty_init();
+void putchar(char c);
 void print(char* string);
 
 #endif
