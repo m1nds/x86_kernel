@@ -18,5 +18,6 @@ struct tty_data {
 void tty_init();
 void putchar(char c);
 void print(char* string);
+void printf(char* format, ...);
 
 #endif
