@@ -1,6 +1,8 @@
 #ifndef PIC_H
 #define PIC_H
 
+#include <stdint.h>
+
 // IO Ports for the PICs
 #define PIC_MASTER_COMMAND 0x20
 #define PIC_SLAVE_COMMAND 0xA0

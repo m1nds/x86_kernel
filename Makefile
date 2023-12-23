@@ -1,6 +1,6 @@
-CC:=i686-elf-gcc
-LD:=i686-elf-ld
-CFLAGS:=-I kernel/include -m32 -g -std=gnu99 -nostdlib -ffreestanding -Wall -Wextra -fstack-protector-all
+CC:=gcc
+LD:=ld
+CFLAGS:=-I kernel/include -g -std=gnu99 -nostdlib -ffreestanding -Wall -Wextra
 AS:=nasm
 
 CRTBEGIN_OBJ:=$(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
@@ -21,8 +21,8 @@ make_iso: setup link_objects
 	grub-mkrescue -o lkd.iso isodir
 
 link_objects: setup $(OBJ)
-	$(LD) --nmagic --output=bin/kernel.bin --script=linker.ld $(LINK)
-	#$(CC) -T linker.ld -o bin/kernel.bin $(CFLAGS) $(LINK)
+	#$(LD) --nmagic --output=bin/kernel.bin --script=linker.ld $(LINK)
+	$(CC) -T linker.ld -o bin/kernel.bin $(CFLAGS) $(LINK)
 
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)

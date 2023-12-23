@@ -4,7 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-struct tty_data {
+struct tty_data
+{
     size_t x;
     size_t y;
 
@@ -12,12 +13,12 @@ struct tty_data {
     size_t width;
 
     uint8_t color;
-    uint16_t* screen;
+    uint16_t *screen;
 };
 
 void tty_init();
 void putchar(char c);
-void print(char* string);
-void printf(char* format, ...);
+void print(char *string);
+void printf(char *format, ...);
 
 #endif

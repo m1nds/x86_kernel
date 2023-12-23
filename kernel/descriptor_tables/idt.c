@@ -1,9 +1,11 @@
+#include "idt.h"
+
 #include <stddef.h>
 #include <stdint.h>
 
-#include "idt.h"
-
-void idt_setup_entry(idt_descriptor_entry* entry, uint32_t offset, uint16_t selector, uint8_t flags) {
+void idt_setup_entry(idt_descriptor_entry *entry, uint32_t offset,
+                     uint16_t selector, uint8_t flags)
+{
     entry->low_offset = offset & 0xFFFF;
     entry->selector = selector;
     entry->reserved = 0;

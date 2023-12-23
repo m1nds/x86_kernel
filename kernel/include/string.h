@@ -3,7 +3,6 @@
 
 #include <stddef.h>
 
-unsigned char* memset(void* dest, unsigned char val, size_t count);
-
+unsigned char *memset(void *dest, unsigned char val, size_t count);
 
 #endif
